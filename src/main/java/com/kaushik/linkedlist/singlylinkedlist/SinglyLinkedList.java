@@ -4,7 +4,7 @@ public class SinglyLinkedList<T> {
 
 	private Node<T> head;
 	private int size;
-	private int capacity = 100;
+	private int capacity = 7;
 
 	private void extendCapacity() {
 		if ((this.capacity - this.size) < 5) {
@@ -15,7 +15,7 @@ public class SinglyLinkedList<T> {
 	public void add(T data) {
 		extendCapacity();
 		Node<T> temp = this.head;
-		while(true){
+		while (true) {
 			if (temp == null) {
 				this.head = new Node<>();
 				this.head.setElement(data);
@@ -32,10 +32,11 @@ public class SinglyLinkedList<T> {
 			}
 		}
 	}
-	public void traverse(){
+
+	public void traverse() {
 		Node<T> temp = this.head;
-		while(true){
-			if(temp != null){
+		while (true) {
+			if (temp != null) {
 				System.out.println(temp.element.toString());
 				temp = temp.getNext();
 			} else {
@@ -43,15 +44,64 @@ public class SinglyLinkedList<T> {
 			}
 		}
 	}
+
+	public void get(int index) throws Exception {
+		Node<T> temp = this.head;
+		if (temp == null) {
+			throw new Exception("List is empty");
+		} else if (index > this.size) {
+			throw new ArrayIndexOutOfBoundsException();
+		} else {
+			int count = 0;
+			while (true) {
+				if (count == index) {
+					System.out.println(temp.getElement().toString());
+					break;
+				} else {
+					temp = temp.getNext();
+					count++;
+				}
+			}
+		}
+	}
 	
-	public static void main(String[] args) {
+	public void delete(int index) throws Exception{
+		Node<T> temp = this.head;
+		if (temp == null) {
+			throw new Exception("List is empty");
+		} else if (index > this.size) {
+			throw new ArrayIndexOutOfBoundsException();
+		} else {
+			int count = 0;
+			while (true) {
+				if (count == index-1) {
+					Node<T> e = temp.getNext(); 
+					temp.setNext(e.getNext());
+					
+					System.out.println("Removing : "+e.getElement().toString());
+					break;
+				} else {
+					temp = temp.getNext();
+					count++;
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
 		SinglyLinkedList<Integer> linkedList = new SinglyLinkedList<>();
 		linkedList.add(11);
 		linkedList.add(55);
 		linkedList.add(5);
 		linkedList.add(6);
 		linkedList.traverse();
-		
+		System.out.println();
+		linkedList.get(0);
+		System.out.println();
+		linkedList.delete(1);
+		System.out.println();
+		linkedList.traverse();
+
 	}
 
 	class Node<T> {
