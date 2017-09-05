@@ -107,6 +107,7 @@ public class DoublyLinkedList<T> {
 				newHead = newHead.getNext();
 			}
 		}
+		this.size--;
 	}
 
 	public static void main(String[] args) {
